@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+    .searchForm,.updateForm,h1{
+        margin-left: 80px;
+        margin-right: 80px;
+    }
+</style>
+
+<body>
+    
+     <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">EduTrack Student Management System</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="home.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login2.html">login</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="SearchData.html">Search Records</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="index.html">Register Students</a>
+        </li>
+   
+       
+      </ul>
+    </div>
+  </nav>
+  <br><br>
+    <div class="searchForm">
+        <div class="form-group">
+            <label for="searchId">Enter ID:</label>
+            <input type="text" class="form-control" id="searchId" placeholder="Enter ID">
+        </div>
+        <button type="submit" id="searchIdBtn" class="btn btn-primary">Search by ID</button><br><br>
+
+        <div class="form-group">
+            <label for="searchFirstName">Enter ID:</label>
+            <input type="text" class="form-control" id="searchFirstName" placeholder="Enter Fisrt Name">
+        </div>
+        <button type="submit" id="searchFirstNameBtn" class="btn btn-primary">Search by First Name</button><br><br>
+
+    </div>
+    <h1>Update list</h1>
+    <div class="updateForm">
+        <div class="toBeUpdated">
+            <div class="form-group">
+                <label for="updateId">Enter ID:</label>
+                <input type="text" class="form-control" id="updateId" placeholder="Enter ID" required>
+            </div>
+            <div class="form-group">
+                <label for="updateFirstName">Enter First Name:</label>
+                <input type="text" class="form-control" id="updateFirstName" placeholder="Enter First Name" required>
+            </div>
+            <div class="form-group">
+                <label for="updateLastName">Enter Last Name:</label>
+                <input type="text" class="form-control" id="updateLastName" placeholder="Enter Last Name" required>
+            </div>
+            <div class="form-group">
+                <label for="updateEmail">Enter Email:</label>
+                <input type="text" class="form-control" id="updateEmail" placeholder="Enter Email" required>
+            </div>
+            <div class="form-group">
+                <label for="updateCity">Enter City:</label>
+                <input type="text" class="form-control" id="updateCity" placeholder="Enter City" required>
+            </div>
+            <div class="form-group">
+                <label for="updateGuardian">Enter Guardian:</label>
+                <input type="text" class="form-control" id="updateGuardian" placeholder="Enter Guardian" required>
+            </div>
+            <div class="form-group">
+                <label for="updateCourse">Enter Course:</label>
+                <input type="text" class="form-control" id="updateCourse" placeholder="Enter Course" required>
+            </div>
+            <div class="form-group">
+                <label for="updateSubject">Enter Subject:</label>
+                <input type="text" class="form-control" id="updateSubject" placeholder="Enter Subject" required>
+            </div>
+            <button type="submit" id="updateBtnById" class="btn btn-primary">Update By ID</button>
+            <button type="submit" id="updateBtnByFirstName" class="btn btn-primary">Update By First Name</button>
+        </div>
+    </div>
+    <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <p>&copy; 2023 Student Management System. All rights reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ 
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Submit search by ID form
+        $('#searchIdBtn').click(function (event) {
+            event.preventDefault();
+            var searchId = $('#searchId').val();
+            searchStudent('id', searchId);
+        });
+
+        // Submit search by fname form
+        $('#searchFirstNameBtn').click(function (event) {
+            event.preventDefault();
+            var searchName = $('#searchFirstName').val();
+            searchStudent('fname', searchName);
+        });
+
+        function searchStudent(type, value) {
+            // Clear table body
+            $('#studentTableBody').empty();
+
+            // Send AJAX request to fetch student details by ID or Name
+            $.ajax({
+                url: '/get-student/' + type + '/' + value,
+                type: 'GET',
+                success: function (response) {
+                    console.log('Student details retrieved:', response);
+
+                    // Display student details in the fields
+                    if (response.length > 0) {
+                        var student = response[0];
+                        $('#updateId').val(student.Sid);
+                        $('#updateFirstName').val(student.firstname);
+                        $('#updateLastName').val(student.lastname);
+                        $('#updateEmail').val(student.email);
+                        $('#updateCity').val(student.city);
+                        $('#updateGuardian').val(student.guardian);
+                        $('#updateCourse').val(student.course);
+                        $('#updateSubject').val(student.subject);
+                    } else {
+                        alert('No student found');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error retrieving student details:', error);
+                }
+            });
+        }
+
+        $('#updateBtnById').click(function (event) {
+            event.preventDefault();
+            var updateId = $('#updateId').val();
+            var updateFirstName = $('#updateFirstName').val();
+            var updateLastName = $('#updateLastName').val();
+            var updateEmail = $('#updateEmail').val();
+            var updateCity = $('#updateCity').val();
+            var updateGuardian = $('#updateGuardian').val();
+            var updateCourse = $('#updateCourse').val();
+            var updateSubject = $('#updateSubject').val();
+
+            var updatedStudent = {
+                firstname: updateFirstName,
+                lastname: updateLastName,
+                email: updateEmail,
+                city: updateCity,
+                guardian: updateGuardian,
+                course: updateCourse,
+                subject: updateSubject
+            };
+
+            $.ajax({
+                url: '/update-student-by-id/' + updateId,
+                type: 'PUT',
+                data: JSON.stringify(updatedStudent),
+                contentType: 'application/json',
+                success: function (response) {
+                    alert('Student record updated by ID');
+                    // Handle success response here
+                },
+                error: function (error) {
+                    alert('Error updating student record:', error);
+                    // Handle error response here
+                }
+            });
+        });
+
+        $('#updateBtnByFirstName').click(function (event) {
+            event.preventDefault();
+            var updateFirstName = $('#updateFirstName').val();
+            var updateLastName = $('#updateLastName').val();
+            var updateEmail = $('#updateEmail').val();
+            var updateCity = $('#updateCity').val();
+            var updateGuardian = $('#updateGuardian').val();
+            var updateCourse = $('#updateCourse').val();
+            var updateSubject = $('#updateSubject').val();
+
+            var updatedStudent = {
+                firstname: updateFirstName,
+                lastname: updateLastName,
+                email: updateEmail,
+                city: updateCity,
+                guardian: updateGuardian,
+                course: updateCourse,
+                subject: updateSubject
+            };
+
+            $.ajax({
+                url: '/update-student-by-first-name/' + updateFirstName,
+                type: 'PUT',
+                data: JSON.stringify(updatedStudent),
+                contentType: 'application/json',
+                success: function (response) {
+                    alert('Student record updated by name');
+                    // Handle success response here
+                },
+                error: function (error) {
+                    alert('Error updating student record: ' + error);
+                    // Handle error response here
+                }
+            });
+        });
+
+    })
+</script>
+
+</html>

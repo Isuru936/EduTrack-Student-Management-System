@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Student Records - Student Management System</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    table {
+      width: 100%;
+      margin-left: 20px;
+
+    }
+
+    h2 {
+      margin-left: 100px;
+    }
+
+    .reg-tableDet{
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">EduTrack Student Management System</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="login2.html">Login</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="searchData.html">Search Records</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="update.html">Update Records</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Student Registration Form -->
+  <section class="container mt-5">
+    <h2>Student Registration</h2>
+    <form id="registrationForm">
+      <div class="form-group">
+        <label for="sid">SID:</label>
+        <input type="text" class="form-control" id="sid" placeholder="Enter SID" required>
+      </div>
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" class="form-control" id="fName" placeholder="Enter First Name" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" class="form-control" id="lName" placeholder="Enter Last Name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter Email" required>
+      </div>
+      <div class="form-group">
+        <label for="city">Nearest City</label>
+        <input type="text" class="form-control" id="city" placeholder="Enter the nearest city" required>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="city">Guardian</label>
+        <input type="text" class="form-control" id="Guardian" placeholder="Enter the guardians name" required>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="Course">Course</label>
+        <select class="form-group" id="Course">
+          <option value="ndt">-Select--</option>
+          <option value="found">Foundation</option>
+          <option value="hnd">HND</option>
+          <option value="degree">Degree</option>
+        </select>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="sub">Subject</label>
+        <select class="form-group" id="subject">
+          <option value="ndt">-Select--</option>
+          <option value="etf">ETF</option>
+          <option value="oop">OOP</option>
+          <option value="dbms">ORDBMS</option>
+          <option value="hci">HCI</option>
+          <option value="ip">IP</option>
+          <option value="se">SE</option>
+        </select>
+      </div>
+      <br>
+      <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
+      <button type="button" id="viewDataBtn" class="btn btn-primary">View student data</button>
+    </form>
+    <br>
+
+
+  </section>
+
+  <!-- Registered Students Table -->
+
+  <br>
+<div class="reg-tableDet">
+  
+    <h2>Registered Students Table</h2><br>
+  
+    <table id="studentTable" class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>City</th>
+          <th>Guardian</th>
+          <th>Course</th>
+          <th>Subject</th>
+        </tr>
+      </thead>
+      <tbody id="studentTableBody">
+        <!-- Table rows will be dynamically added here -->
+      </tbody>
+    </table>
+</div>
+
+  <br><br><br><br><br>
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <p>&copy; 2023 Student Management System. All rights reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+  <script>
+
+    $(document).ready(function (slideDown) {
+
+      $("#viewDataBtn").click(function () {
+        $(".reg-tableDet").slideToggle("slow");
+      });
+
+      
+      // Trigger the fade effect on button click
+      $("#viewDataBtn").click(function () {
+        table.fadeIn(1000); // Fade in over 1000 milliseconds (1 second)
+      });
+    });
+    
+      // Select the table element using its ID or class
+      var table = $("#studentTable");
+
+      $(document).ready(function () {
+        // Function to fetch and display student data
+        function fetchStudentData() {
+          $.ajax({
+            url: '/fetch-students',
+            type: 'GET',
+            success: function (response) {
+              // Clear existing table rows
+              $('#studentTable tbody').empty();
+
+              // Iterate over the student data and populate the table
+              response.forEach(function (studentData) {
+                var row = `
+                            <tr>
+                                <td>${studentData.Sid}</td>
+                                <td>${studentData.firstname}</td>
+                                <td>${studentData.lastname}</td>
+                                <td>${studentData.email}</td>
+                                <td>${studentData.city}</td>
+                                <td>${studentData.guardian}</td>
+                                <td>${studentData.course}</td>
+                                <td>${studentData.subject}</td>
+                            </tr>`;
+                $('#studentTable tbody').append(row);
+              });
+            },
+            error: function (err) {
+              console.log('Error fetching Student Data', err);
+            }
+          });
+        }
+
+        // Submit event handler for the registration form
+        $('#registrationForm').submit(function (event) {
+          event.preventDefault();
+
+          // Get the form input values
+          var sid = $('#sid').val();
+          var firstName = $('#fName').val();
+          var lastName = $('#lName').val();
+          var email = $('#email').val();
+          var city = $('#city').val();
+          var guardian = $('#Guardian').val();
+          var course = $('#Course').val();
+          var subject = $('#subject').val();
+
+          var student = {
+            sid: sid,
+            firstname: firstName,
+            lastname: lastName,
+            email: email,
+            city: city,
+            guardian: guardian,
+            course: course,
+            subject: subject
+          };
+
+          // Send AJAX request to register the student
+          $.ajax({
+            url: '/register-students',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(student),
+            success: function (response) {
+              console.log('Data successfully submitted:', response);
+              // Fetch and display updated student data
+              fetchStudentData();
+            },
+            error: function (error) {
+              console.error('Error submitting data:', error);
+            }
+          });
+
+          // Reset form fields
+          $('#sid').val('');
+          $('#fName').val('');
+          $('#lName').val('');
+          $('#email').val('');
+          $('#city').val('');
+          $('#Guardian').val('');
+          $('#Course').val('--select--');
+          $('#subject').val('--select--');
+        });
+
+        // Fetch and display initial student data on page load
+        fetchStudentData();
+      });
+  </script>
+
+</body>
+
+</html>

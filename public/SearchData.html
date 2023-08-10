@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search by ID or Name</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        form, h2 {
+            margin-left: 120px;
+            margin-right: 120px;
+        }
+        table {
+        width: 100%;
+        margin-left: 20px;
+
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">EduTrack Student Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="login2.html">Login</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Register Students</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="update.html">Update Records</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Search Form -->
+    <br>
+    <h2>Search by ID or Name</h2>
+    <form id="searchForm">
+
+        <div class="form-group">
+            <label for="searchId">Enter ID:</label>
+            <input type="text" class="form-control" id="searchId" placeholder="Enter ID">
+        </div>
+        <button type="submit" id="searchIdBtn" class="btn btn-primary">Search by ID</button>
+
+        <div class="form-group">
+            <label for="searchFirstName">Enter First Name:</label>
+            <input type="text" class="form-control" id="searchFirstName" placeholder="Enter First Name">
+        </div>
+        <button type="submit" id="searchFirstNameBtn" class="btn btn-primary">Search by First Name</button>
+
+        <div class="form-group">
+            <label for="searchLastName">Enter Last Name:</label>
+            <input type="text" class="form-control" id="searchLastName" placeholder="Enter Last Name">
+        </div>
+        <button type="submit" id="searchLastNameBtn" class="btn btn-primary">Search by Last Name</button>
+
+        <div class="form-group">
+            <label for="searchEmail">Enter email:</label>
+            <input type="text" class="form-control" id="searchEmail" placeholder="Enter Email">
+        </div>
+        <button type="submit" id="searchEmailBtn" class="btn btn-primary">Search by Email</button>
+
+        <div class="form-group">
+            <label for="searchCity">Enter city:</label>
+            <input type="text" class="form-control" id="searchCity" placeholder="Enter City">
+        </div>
+        <button type="submit" id="searchCityBtn" class="btn btn-primary">Search by City</button>
+
+        <div class="form-group">
+            <label for="searchGuardian">Enter Guardian:</label>
+            <input type="text" class="form-control" id="searchGuardian" placeholder="Enter Guardian">
+        </div>
+        <button type="submit" id="searchGuardianBtn" class="btn btn-primary">Search by Guardian</button>
+
+        <div class="form-group">
+            <label for="searchCourse">Enter Course:</label>
+            <input type="text" class="form-control" id="searchCourse" placeholder="Enter Course">
+        </div>
+        <button type="submit" id="searchCourseBtn" class="btn btn-primary">Search by Course</button>
+
+    </form>
+
+    <!-- Display Table -->
+    <br>
+    <h2>Student Details</h2>
+    <table id="studentTable" class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>City</th>
+                <th>Guardian</th>
+                <th>Course</th>
+                <th>Subject</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="studentTableBody">
+            <!-- Table rows will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <!-- Footer -->
+    <br><br>
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2023 Student Management System. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        // Submit search by ID form
+        $('#searchIdBtn').click(function (event) {
+            event.preventDefault();
+            var searchId = $('#searchId').val();
+            searchStudent('id', searchId);
+        });
+
+        // Submit search by fname form
+        $('#searchFirstNameBtn').click(function (event) {
+            event.preventDefault();
+            var searchName = $('#searchFirstName').val();
+            searchStudent('fname', searchName);
+        });
+
+        // Submit search by lname form
+        $('#searchLastNameBtn').click(function (event) {
+            event.preventDefault();
+            var searchName = $('#searchLastName').val();
+            searchStudent('lname', searchName);
+        });
+
+        // Submit search by email form
+        $('#searchEmailBtn').click(function (event) {
+            event.preventDefault();
+            var searchEmail = $('#searchEmail').val();
+            searchStudent('email', searchEmail);
+        });
+
+        // Submit search by city form
+        $('#searchCityBtn').click(function (event) {
+            event.preventDefault();
+            var searchCity = $('#searchCity').val();
+            searchStudent('city', searchCity);
+        });
+
+        // Submit search by guardian form
+        $('#searchGuardianBtn').click(function (event) {
+            event.preventDefault();
+            var searchGuardian = $('#searchGuardian').val();
+            searchStudent('guardian', searchGuardian);
+        });
+
+        // Submit search by course form
+        $('#searchCourseBtn').click(function (event) {
+            event.preventDefault();
+            var searchCourse = $('#searchCourse').val();
+            searchStudent('course', searchCourse);
+        });
+
+        function searchStudent(type, value) {
+            // Clear table body
+            $('#studentTableBody').empty();
+
+            // Send AJAX request to fetch student details by ID or Name
+            $.ajax({
+                url: '/get-student/' + type + '/' + value,
+                type: 'GET',
+                success: function (response) {
+                    console.log('Student details retrieved:', response);
+
+                    // Display student details in the table
+                    if (response.length > 0) {
+                        for (var i = 0; i < response.length; i++) {
+                            var student = response[i];
+                            var row = '<tr>' +
+                                '<td>' + student.Sid + '</td>' +
+                                '<td>' + student.firstname + '</td>' +
+                                '<td>' + student.lastname + '</td>' +
+                                '<td>' + student.email + '</td>' +
+                                '<td>' + student.city + '</td>' +
+                                '<td>' + student.guardian + '</td>' +
+                                '<td>' + student.course + '</td>' +
+                                '<td>' + student.subject + '</td>' +
+                                '<td><button class="deleteBtn btn btn-danger" data-sid="' + student.Sid + '">Delete</button></td>' +
+                                '</tr>';
+                            $('#studentTableBody').append(row);
+                        }
+                    } else {
+                        var row = '<tr><td colspan="4">No student found</td></tr>';
+                        $('#studentTableBody').append(row);
+                    }
+                },
+                error: function (error) {
+                    console.error('Error retrieving student details:', error);
+                }
+            });
+        }
+
+        // Attach click event handler to delete buttons
+        $('#studentTableBody').on('click', '.deleteBtn', function () {
+            var sid = $(this).data('sid');
+            var rowElement = $(this).closest('tr');
+
+            // Send AJAX request to delete student record
+            $.ajax({
+                url: '/delete-student/' + sid,
+                type: 'DELETE',
+                success: function (response) {
+                    console.log('Student record deleted:', response);
+                    // Remove the deleted row from the table
+                    rowElement.remove();
+                },
+                error: function (error) {
+                    console.error('Error deleting student record:', error);
+                }
+            });
+        });
+    });
+</script>
+</body>
+
+</html>

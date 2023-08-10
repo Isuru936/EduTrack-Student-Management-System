@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management System - Home</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    #ab,
+    #con,
+    #feature {
+      display: none;
+    }
+
+    #contactBtn,
+    #aboutBtn {
+      margin-right: 10px;
+    }
+
+    #ab,
+    #con {
+      margin-left: 100px;
+      margin-right: 100px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+    }
+
+    .infor button {
+      margin-left: 10px;
+    }
+
+    .center-button {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><img src="logo.jpeg" width="100px" ></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="home.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login2.html">login</a>
+        </li>
+
+
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="jumbotron jumbotron-fluid text-center">
+    <div class="container">
+      <h1 class="display-4"><b>Welcome to EduTrack Student Management System</b></h1>
+      <p class="lead">Manage student records in a convenient and efficient manner.</p>
+      <a href="login2.html" id="lgbtn" class="btn btn-primary btn-lg">Login</a>
+    </div>
+  </section>
+  <!-- Registration Section -->
+  <section class="container" id="reg">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h4>Register</h4>
+          </div>
+          <div class="card-body">
+            <form id="registrationForm">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+              </div>
+              <div class="form-group">
+                <label for="password"> Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+              </div>
+              <div class="form-group">
+                <label for="email"> Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+              </div>
+              <button type="submit" id="btn" class="btn btn-primary">Register</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br><br><br>
+  <div class="center-button">
+    <button type="submit" id="cbtn" class="btn btn-primary">Click here to see features</button>
+  </div>
+  <br>
+
+  <!-- Features Section -->
+  <div class="feature" id="feature">
+    <section class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <img src="manage.jpg" class="card-img-top" alt="Student Records">
+            <div class="card-body">
+              <h5 class="card-title">Manage Student Records</h5>
+              <p class="card-text">Easily add, view, edit, and delete student records.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <img src="report.png" class="card-img-top" alt="Student Reports">
+            <div class="card-body">
+              <h5 class="card-title">Generate Student Reports</h5>
+              <p class="card-text">Generate comprehensive reports on student performance and attendance.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <img src="message.png" class="card-img-top" alt="Notifications">
+            <div class="card-body">
+              <h5 class="card-title">Receive Notifications</h5>
+              <p class="card-text">Stay informed with real-time notifications regarding important events.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <br><br><br>
+
+  <div class="buttons">
+    <button type="button" id="aboutBtn" class="btn btn-secondary">About Us</button>
+    <button type="button" id="contactBtn" class="btn btn-secondary">Contact Us</button>
+  </div>
+  <p id="ab">
+    <strong>
+      We are dedicated to providing efficient and reliable management of student records to ensure
+      a seamless academic experience for both students and faculty.
+      Our Mission:
+      Our mission is to streamline the process of managing student records, making it easier for administrators,
+      faculty members, and students to access and update information efficiently. By leveraging technology,
+      we aim to enhance communication, improve record accuracy, and promote data-driven decision-making.
+    </strong>
+  </p>
+
+  <div class="contact" id="con">
+    <p>
+      <i>Thank you for your interest in the Student Record Management System. We value your feedback, questions, and
+      suggestions. Please feel free to reach out to us using the contact information provided below:
+      General Inquiries:
+      For general inquiries or information regarding the Student Record Management System, you can contact our
+      dedicated support team. They will be happy to assist you with any questions or concerns you may have.
+      </i>
+    </p>
+    <p>
+      <b><i>
+          Email: support@sms.com
+          Phone: 0729856324
+        </i></b>
+    </p>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <p>&copy; 2023 Student Management System. All rights reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $("#aboutBtn").click(function () {
+        $("#ab").slideToggle();
+      });
+
+      $("#cbtn").click(function () {
+        $("#feature").slideToggle("slow");
+      });
+
+      $("#btn").click(function () {
+        $("#reg").slideUp("slow", function () {
+          $(this).animate({ marginLeft: '200px' });
+        });
+      });
+
+
+      $("#contactBtn").click(function () {
+        $("#con").slideToggle();
+      });
+
+      $('#aboutbtn').click(function () {
+        $('#ab').css({
+          'background-color': 'lightgray',
+          'border': '2px solid #333'
+        });
+      });
+    });
+
+    $(document).ready(function () {
+      // Submit event handler for the registration form
+      $('#registrationForm').submit(function (event) {
+        event.preventDefault();
+
+        // Get the form input values
+        var username = $('#username').val();
+        var password = $('#password').val();
+        var email = $('#email').val();
+
+
+        var user = {
+          username: username,
+          password: password,
+          email: email,
+        };
+
+        // Send AJAX request to register the student
+        $.ajax({
+          url: '/register-user',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(user),
+          success: function (response) {
+            console.log('Data successfully submitted:', response);
+          },
+          error: function (error) {
+            console.error('Error submitting data:', error);
+          }
+        });
+
+        // Reset form fields
+        $('#username').val('');
+        $('#password').val('');
+        $('#email').val('');
+
+        //display success message
+        alert("Registration successful, login with uoyr details");
+
+      });
+
+    });
+  </script>
+</body>
+
+</html>
